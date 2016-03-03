@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Module Permissions.
+ */
+
+/**
+ * Implement hook_install().
+ */
+function module_permissions_install() {
+  // Init module variables.
+  variable_set('module_permissions_managed_modules', array());
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function module_permissions_uninstall() {
+  // Clean up the module variables from database after uninstall.
+  variable_del('module_permissions_managed_modules');
+}

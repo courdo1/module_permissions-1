@@ -1,0 +1,5 @@
+name = "Module Permissions"
+description = "Allow administrators to define a subset of modules to be managed by others"
+package = Administration
+core = 7.x
+configure = admin/config/system/managed-modules
