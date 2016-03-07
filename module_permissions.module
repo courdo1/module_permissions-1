@@ -276,6 +276,17 @@ function module_permissions_managed_modules_load() {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function module_permissions_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    $group = $implementations['module_permissions'];
+    unset($implementations['module_permissions']);
+    $implementations['module_permissions'] = $group;
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function module_permissions_form_alter(&$form, &$form_state, $form_id) {
