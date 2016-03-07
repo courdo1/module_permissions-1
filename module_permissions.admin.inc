@@ -17,8 +17,14 @@ function module_permissions_managed_modules($form, $form_state = array()) {
 
   // Remove hidden modules from display list.
   $visible_files = $files;
+  $exclude_core = variable_get('module_permissions_exclude_core', 1);
+
   foreach ($visible_files as $filename => $file) {
     if (!empty($file->info['hidden'])) {
+      unset($visible_files[$filename]);
+    }
+    // // Remove core modules from display list.
+    if ($exclude_core == TRUE && $file->info['package'] == 'Core') {
       unset($visible_files[$filename]);
     }
   }
@@ -142,4 +148,20 @@ function theme_module_permissions_managed_modules_list($variables) {
  */
 function module_permissions_sort_modules_by_info_name($a, $b) {
   return strcasecmp($a->info['name'], $b->info['name']);
+}
+
+/**
+ * Menu callback; provides managed module config interface.
+ *
+ * @ingroup forms
+ */
+function module_permissions_config($form, $form_state = array()) {
+  $form['module_permissions_exclude_core'] = array(
+    '#type' => 'radios',
+    '#title' => t('Exclude core modules'),
+    '#default_value' => variable_get('module_permissions_exclude_core', 1),
+    '#options' => array(0 => 'No', 1 => 'Yes'),
+    '#description' => t('Exclude core modules from managed modules list. Warning: This configuration has security implications when choose "No".'),
+  );
+  return system_settings_form($form);
 }

@@ -17,9 +17,19 @@
  * If no modules return FALSE but none return TRUE either, normal permission
  * based checking will apply.
  *
- * @param $op - managed_module_list or managed_module_permissions.
+ * @param $op - system_modules or user_admin_permissions.
  * @param $account - The user account whose access should be determined.
+ * @see module_permissions_menu_alter()
  */
 function hook_module_permissions_access($op, $account) {
+  // Placeholder.
+}
+
+/**
+ * Allows modules to deny or provide a restrict status check callback.
+ *
+ * @see module_permissions_form_alter()
+ */
+function hook_module_permissions_restrict($op, $account) {
   // Placeholder.
 }

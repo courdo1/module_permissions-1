@@ -18,6 +18,9 @@ function module_permissions_help($path, $arg) {
     case 'admin/modules/managed':
       $output = '<p>' . t("The following selected modules will be available for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
       return $output;
+    case 'admin/config/system/managed-modules':
+      $output = '<p>' . t("The following selected modules will be available for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
+      return $output;
   }
 }
 
@@ -57,6 +60,7 @@ function module_permissions_menu() {
     'access arguments' => array('administer module permissions'),
     'file' => 'module_permissions.admin.inc',
   );
+
   // Managed modules config path.
   $items['admin/config/system/managed-modules'] = array(
     'title' => 'Module permissions',
@@ -65,6 +69,20 @@ function module_permissions_menu() {
     'page arguments' => array('module_permissions_managed_modules'),
     'access arguments' => array('administer module permissions'),
     'file' => 'module_permissions.admin.inc',
+  );
+  $items['admin/config/system/managed-modules/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/config/system/managed-modules/config'] = array(
+    'title' => 'Configuration',
+    'description' => 'Administer settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('module_permissions_config'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'module_permissions.admin.inc',
+    'weight' => 20,
   );
 
   return $items;
@@ -117,6 +135,8 @@ function module_permissions_hook_info() {
 
 /**
  * Provide a access callback.
+ *
+ * @see module_permissions_menu_alter()
  */
 function module_permissions_access($op = 'system_modules', $account = NULL) {
   $access = &drupal_static(__FUNCTION__, array());
@@ -178,7 +198,9 @@ function module_permissions_access($op = 'system_modules', $account = NULL) {
 }
 
 /**
- * Restrict page callback.
+ * Provide a restrict status check callback.
+ *
+ * @see module_permissions_form_alter()
  */
 function module_permissions_restrict($op = 'system_modules', $account = NULL) {
   $restrict = &drupal_static(__FUNCTION__, array());
@@ -273,6 +295,7 @@ function module_permissions_form_alter(&$form, &$form_state, $form_id) {
 function module_permissions_form_handler(&$form, $callback = '') {
   if (!empty($callback) && function_exists($callback)) {
     $callback($form);
+    // Add logs submit callback.
     $form["#submit"][] = 'module_permissions_logs_submit';
   }
 }
