@@ -29,6 +29,12 @@ function module_permissions_managed_modules($form, $form_state = array()) {
     }
   }
 
+  // If list is empty, return and set a message.
+  if(empty($visible_files)) {
+    drupal_set_message(t('Managed module list is empty.'), 'warning');
+    return $form;
+  }
+
   uasort($visible_files, 'module_permissions_sort_modules_by_info_name');
 
   // Remove module permissions from list.
