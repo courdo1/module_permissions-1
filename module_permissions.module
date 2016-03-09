@@ -25,6 +25,33 @@ function module_permissions_help($path, $arg) {
 }
 
 /**
+ * Implements hook_hook_info().
+ */
+function module_permissions_hook_info() {
+  $hooks = array(
+    'module_permissions_access' => array(
+      'group' => 'module_permissions',
+    ),
+    'module_permissions_restrict' => array(
+      'group' => 'module_permissions',
+    ),
+  );
+
+  return $hooks;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function module_permissions_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter' || $hook == 'menu_alter') {
+    $group = $implementations['module_permissions'];
+    unset($implementations['module_permissions']);
+    $implementations['module_permissions'] = $group;
+  }
+}
+
+/**
  * Implements hook_permission().
  */
 function module_permissions_permission() {
@@ -115,22 +142,6 @@ function module_permissions_menu_alter(&$items) {
       'access arguments' => array('system_modules'),
     )
   );
-}
-
-/**
- * Implements hook_hook_info().
- */
-function module_permissions_hook_info() {
-  $hooks = array(
-    'module_permissions_access' => array(
-      'group' => 'module_permissions',
-    ),
-    'module_permissions_restrict' => array(
-      'group' => 'module_permissions',
-    ),
-  );
-
-  return $hooks;
 }
 
 /**
@@ -259,31 +270,6 @@ function module_permissions_restrict($op = 'system_modules', $account = NULL) {
   }
 
   return $restrict[$cid];
-}
-
-/**
- * Get managed modules list.
- */
-function module_permissions_managed_modules_load() {
-  $managed_modules = &drupal_static(__FUNCTION__);
-
-  if (!isset($managed_modules)) {
-    $managed_modules = variable_get('module_permissions_managed_modules', array());
-    $managed_modules = array_flip($managed_modules);
-  }
-
-  return $managed_modules;
-}
-
-/**
- * Implements hook_module_implements_alter().
- */
-function module_permissions_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'form_alter') {
-    $group = $implementations['module_permissions'];
-    unset($implementations['module_permissions']);
-    $implementations['module_permissions'] = $group;
-  }
 }
 
 /**
@@ -461,18 +447,6 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
 }
 
 /**
- * Implements hook_theme().
- */
-function module_permissions_theme() {
-  return array(
-    'module_permissions_managed_modules_list' => array(
-      'render element' => 'form',
-      'file' => 'module_permissions.admin.inc',
-    ),
-  );
-}
-
-/**
  * Form submission callback.
  */
 function module_permissions_logs_submit(&$form, &$form_state) {
@@ -539,4 +513,30 @@ function module_permissions_logs_submit(&$form, &$form_state) {
       ));
     }
   }
+}
+
+/**
+ * Get managed modules list.
+ */
+function module_permissions_managed_modules_load() {
+  $managed_modules = &drupal_static(__FUNCTION__);
+
+  if (!isset($managed_modules)) {
+    $managed_modules = variable_get('module_permissions_managed_modules', array());
+    $managed_modules = array_flip($managed_modules);
+  }
+
+  return $managed_modules;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function module_permissions_theme() {
+  return array(
+    'module_permissions_managed_modules_list' => array(
+      'render element' => 'form',
+      'file' => 'module_permissions.admin.inc',
+    ),
+  );
 }
