@@ -34,9 +34,7 @@ function module_permissions_requirements($phase) {
       'description' => $t('Granting normal users permission to administer
       module permissions poses a security risk. More information is
       available in the module README or on the !url.', array(
-        '!url' =>
-          l($t('project page'),
-            'http://drupal.org/project/module_permissions')
+        '!url' => l($t('project page'), 'http://drupal.org/project/module_permissions'),
       )),
       'severity' => isset($severity) ? $severity : REQUIREMENT_OK,
     );
