@@ -20,7 +20,7 @@ class ModulePermissionsWebTestCase extends DrupalWebTestCase {
   /**
    * Set up test.
    */
-  function setUp() {
+  public function setUp() {
     // Enable Module Permissions module and any other modules.
     $modules = func_get_args();
     $modules = isset($modules[0]) ? $modules[0] : $modules;

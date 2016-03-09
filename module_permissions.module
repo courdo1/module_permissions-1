@@ -418,9 +418,10 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
           '#type' => 'item',
           '#markup' => $perm_item['title'],
           '#description' => theme('user_permission_description', array(
-            'permission_item' => $perm_item,
-            'hide' => $hide_descriptions
-          )),
+              'permission_item' => $perm_item,
+              'hide' => $hide_descriptions,
+            )
+          ),
         );
         // Build arrays for roles.
         foreach ($role_names as $rid => $name) {
@@ -443,7 +444,7 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
     );
     $form['role_names'][$rid] = array(
       '#markup' => check_plain($name),
-      '#tree' => TRUE
+      '#tree' => TRUE,
     );
   }
 }
