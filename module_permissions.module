@@ -93,28 +93,13 @@ function module_permissions_menu() {
  */
 function module_permissions_menu_alter(&$items) {
   // System user permissions and role forms.
-  $items['admin/people/permissions'] = array_merge(
-    $items['admin/people/permissions'],
-    array(
-      'access callback' => 'module_permissions_access',
-      'access arguments' => array('user_admin_permissions'),
-    )
-  );
+  $items['admin/people/permissions']['access callback'] = 'module_permissions_access';
+  $items['admin/people/permissions']['access arguments'] = 'user_admin_permissions';
   // System modules list.
-  $items['admin/modules'] = array_merge(
-    $items['admin/modules'],
-    array(
-      'access callback' => 'module_permissions_access',
-      'access arguments' => array('system_modules'),
-    )
-  );
-  $items['admin/modules/list/confirm'] = array_merge(
-    $items['admin/modules/list/confirm'],
-    array(
-      'access callback' => 'module_permissions_access',
-      'access arguments' => array('system_modules'),
-    )
-  );
+  $items['admin/modules']['access callback'] = 'module_permissions_access';
+  $items['admin/modules']['access arguments'] = 'system_modules';
+  $items['admin/modules/list/confirm']['access callback'] = 'module_permissions_access';
+  $items['admin/modules/list/confirm']['access arguments'] = 'system_modules';
 }
 
 /**
