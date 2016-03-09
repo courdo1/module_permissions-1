@@ -17,6 +17,9 @@ class ModulePermissionsWebTestCase extends DrupalWebTestCase {
     'administer managed modules permissions',
   );
 
+  /**
+   * Set up test.
+   */
   function setUp() {
     // Enable Module Permissions module and any other modules.
     $modules = func_get_args();
@@ -29,12 +32,16 @@ class ModulePermissionsWebTestCase extends DrupalWebTestCase {
     // Disable Clean URLs to ensure drupal.org testbot compatibility.
     variable_set('clean_url', 0);
   }
+
 }
 
 /**
  * Tests menu links depending on user permissions.
  */
 class ModulePermissionsTestCase extends ModulePermissionsWebTestCase {
+  /**
+   * Register test task info.
+   */
   public static function getInfo() {
     return array(
       'name' => 'Enable/disable modules',
@@ -43,7 +50,10 @@ class ModulePermissionsTestCase extends ModulePermissionsWebTestCase {
     );
   }
 
-  function testEnableDisable() {
+  /**
+   * Test enable/disable module.
+   */
+  public function testEnableDisable() {
     $this->admin_user = $this->drupalCreateUser(array('access administration pages', 'administer managed modules'));
     $this->drupalLogin($this->admin_user);
 
@@ -67,4 +77,5 @@ class ModulePermissionsTestCase extends ModulePermissionsWebTestCase {
     $this->drupalPost('admin/modules', $edit, t('Save configuration'));
     $this->assertText(t('The configuration options have been saved.'), 'Modules status has been updated.');
   }
+
 }

@@ -9,6 +9,7 @@
  * Menu callback; provides managed module enable/disable interface.
  *
  * @ingroup forms
+ *
  * @see system_modules()
  */
 function module_permissions_managed_modules($form, $form_state = array()) {
@@ -30,7 +31,7 @@ function module_permissions_managed_modules($form, $form_state = array()) {
   }
 
   // If list is empty, return and set a message.
-  if(empty($visible_files)) {
+  if (empty($visible_files)) {
     drupal_set_message(t('Managed module list is empty.'), 'warning');
     return $form;
   }
@@ -133,7 +134,7 @@ function theme_module_permissions_managed_modules_list($variables) {
     unset($module['granted']['#title']);
     $row[] = array(
       'class' => array('checkbox'),
-      'data' => drupal_render($module['granted'])
+      'data' => drupal_render($module['granted']),
     );
     $label = '<label';
     if (isset($module['modules']['#id'])) {

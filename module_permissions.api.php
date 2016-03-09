@@ -17,8 +17,9 @@
  * If no modules return FALSE but none return TRUE either, normal permission
  * based checking will apply.
  *
- * @param $op - system_modules or user_admin_permissions.
- * @param $account - The user account whose access should be determined.
+ * $op - system_modules or user_admin_permissions.
+ * $account - The user account whose access should be determined.
+ *
  * @see module_permissions_menu_alter()
  */
 function hook_module_permissions_access($op, $account) {

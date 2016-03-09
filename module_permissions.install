@@ -6,7 +6,7 @@
  */
 
 /**
- * Implement hook_install().
+ * Implements hook_install().
  */
 function module_permissions_install() {
   // Init module variables.
@@ -15,7 +15,7 @@ function module_permissions_install() {
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function module_permissions_uninstall() {
   // Clean up the module variables from database after uninstall.

@@ -4,7 +4,7 @@
  * @file
  * The main Module Permissions module file.
  *
- * Module Permissions allows a subset of modules to be enabled/disabled by desired roles.
+ * Module Permissions allows a subset of modules to be enabled/disabled.
  */
 
 /**
@@ -15,9 +15,11 @@ function module_permissions_help($path, $arg) {
     case 'admin/help#module_permissions':
       $output = '<p>' . t("Allow administrators to define a subset of modules to be managed by others.") . '</p>';
       return $output;
+
     case 'admin/modules/managed':
       $output = '<p>' . t("The following selected modules will be available for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
       return $output;
+
     case 'admin/config/system/managed-modules':
       $output = '<p>' . t("The following selected modules will be available for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
       return $output;
@@ -381,7 +383,7 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
   }
   $form['permission'] = array();
 
-  // Render role/permission overview:
+  // Render role/permission overview.
   $options = array();
   $module_info = system_get_info('module');
   $hide_descriptions = system_admin_compact_mode();
@@ -422,7 +424,7 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
         );
         // Build arrays for roles.
         foreach ($role_names as $rid => $name) {
-          // Builds arrays for checked boxes for each role
+          // Builds arrays for checked boxes for each role.
           if (isset($role_permissions[$rid][$perm])) {
             $status[$rid][] = $perm;
           }
@@ -431,7 +433,7 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
     }
   }
 
-  // Have to build checkboxes here after checkbox arrays are built
+  // Have to build checkboxes here after checkbox arrays are built.
   foreach ($role_names as $rid => $name) {
     $form['checkboxes'][$rid] = array(
       '#type' => 'checkboxes',
