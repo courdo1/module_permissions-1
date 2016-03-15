@@ -106,14 +106,18 @@ function module_permissions_managed_modules($form, $form_state = array()) {
  */
 function module_permissions_managed_modules_submit($form, &$form_state) {
   $managed_modules = array();
-  foreach ($form_state['values']['modules'] as $modules) {
-    foreach ($modules as $name => $values) {
-      $modules = $values['granted'];
-      if ($modules) {
-        $managed_modules[] = $name;
+
+  if (is_array($form_state['values']['modules'])) {
+    foreach ($form_state['values']['modules'] as $modules) {
+      foreach ($modules as $name => $values) {
+        $modules = $values['granted'];
+        if ($modules) {
+          $managed_modules[] = $name;
+        }
       }
     }
   }
+
   variable_set('module_permissions_managed_modules', $managed_modules);
   drupal_set_message(t('The configuration options have been saved.'));
 }
