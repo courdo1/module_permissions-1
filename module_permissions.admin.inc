@@ -107,7 +107,7 @@ function module_permissions_managed_modules($form, $form_state = array()) {
 function module_permissions_managed_modules_submit($form, &$form_state) {
   $managed_modules = array();
 
-  if (is_array($form_state['values']['modules'])) {
+  if (!empty($form_state['values']['modules'])) {
     foreach ($form_state['values']['modules'] as $modules) {
       foreach ($modules as $name => $values) {
         $modules = $values['granted'];
