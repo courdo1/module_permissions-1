@@ -223,7 +223,7 @@ function module_permissions_restrict($op = 'system_modules', $account = NULL) {
   $cid = $account->uid . ':' . $op;
 
   if (!isset($restrict[$cid])) {
-    // Return FALSE by default.
+    // Return TRUE by default.
     $restrict[$cid] = TRUE;
 
     // User #1 has all privileges:

@@ -39,6 +39,7 @@ function module_permissions_requirements($phase) {
       'severity' => isset($severity) ? $severity : REQUIREMENT_OK,
     );
   }
+
   return $requirements;
 }
 
