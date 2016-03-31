@@ -13,15 +13,15 @@
 function module_permissions_help($path, $arg) {
   switch ($path) {
     case 'admin/help#module_permissions':
-      $output = '<p>' . t("Allow administrators to define a subset of modules to be managed by others.") . '</p>';
+      $output = '<p>' . t("Allow administrators to define a list of modules that can be managed by others.") . '</p>';
       return $output;
 
     case 'admin/modules/managed':
-      $output = '<p>' . t("The following selected modules will be available for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
+      $output = '<p>' . t("Please select modules for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
       return $output;
 
     case 'admin/config/system/managed-modules':
-      $output = '<p>' . t("The following selected modules will be available for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
+      $output = '<p>' . t("Please select modules for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
       return $output;
   }
 }
@@ -93,7 +93,7 @@ function module_permissions_menu() {
   // Managed modules config path.
   $items['admin/config/system/managed-modules'] = array(
     'title' => 'Module permissions',
-    'description' => 'Module permissions configurations.',
+    'description' => 'Administer the list of modules that can be managed by others',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('module_permissions_managed_modules'),
     'access arguments' => array('administer module permissions'),
