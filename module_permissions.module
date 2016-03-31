@@ -548,7 +548,7 @@ function module_permissions_theme() {
   return array(
     'module_permissions_managed_modules_list' => array(
       'render element' => 'form',
-      'file' => 'module_permissions.admin.inc',
+      'file' => 'module_permissions.theme.inc',
     ),
   );
 }
