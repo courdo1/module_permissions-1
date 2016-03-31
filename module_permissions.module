@@ -14,14 +14,17 @@ function module_permissions_help($path, $arg) {
   switch ($path) {
     case 'admin/help#module_permissions':
       $output = '<p>' . t("Allow administrators to define a list of modules that can be managed by others.") . '</p>';
+
       return $output;
 
     case 'admin/modules/managed':
       $output = '<p>' . t("Please select modules for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
+
       return $output;
 
     case 'admin/config/system/managed-modules':
       $output = '<p>' . t("Please select modules for users with permission 'Administer managed modules' to enable/disable.") . '</p>';
+
       return $output;
   }
 }
@@ -122,28 +125,20 @@ function module_permissions_menu() {
  */
 function module_permissions_menu_alter(&$items) {
   // System user permissions and role forms.
-  $items['admin/people/permissions'] = array_merge(
-    $items['admin/people/permissions'],
-    array(
-      'access callback' => 'module_permissions_access',
-      'access arguments' => array('user_admin_permissions'),
-    )
-  );
+  if (isset($items['admin/people/permissions'])) {
+    $items['admin/people/permissions']['access callback'] = 'module_permissions_access';
+    $items['admin/people/permissions']['access arguments'] = array('user_admin_permissions');
+  }
   // System modules list.
-  $items['admin/modules'] = array_merge(
-    $items['admin/modules'],
-    array(
-      'access callback' => 'module_permissions_access',
-      'access arguments' => array('system_modules'),
-    )
-  );
-  $items['admin/modules/list/confirm'] = array_merge(
-    $items['admin/modules/list/confirm'],
-    array(
-      'access callback' => 'module_permissions_access',
-      'access arguments' => array('system_modules'),
-    )
-  );
+  if (isset($items['admin/modules'])) {
+    $items['admin/modules']['access callback'] = 'module_permissions_access';
+    $items['admin/modules']['access arguments'] = array('system_modules');
+  }
+  // System modules confirm.
+  if (isset($items['admin/modules/list/confirm'])) {
+    $items['admin/modules/list/confirm']['access callback'] = 'module_permissions_access';
+    $items['admin/modules/list/confirm']['access arguments'] = array('system_modules');
+  }
 }
 
 /**
@@ -165,6 +160,7 @@ function module_permissions_access($op = 'system_modules', $account = NULL) {
     // User #1 has all privileges:
     if ($account->uid == 1) {
       $access[$cid] = TRUE;
+
       return $access[$cid];
     }
 
@@ -173,10 +169,12 @@ function module_permissions_access($op = 'system_modules', $account = NULL) {
 
     if (in_array(FALSE, $access_results, TRUE)) {
       $access[$cid] = FALSE;
+
       return $access[$cid];
     }
     elseif (in_array(TRUE, $access_results, TRUE)) {
       $access[$cid] = TRUE;
+
       return $access[$cid];
     }
 
@@ -185,11 +183,13 @@ function module_permissions_access($op = 'system_modules', $account = NULL) {
       // Perform basic permission checks first.
       if (user_access('administer modules', $account)) {
         $access[$cid] = TRUE;
+
         return $access[$cid];
       }
       // Module permissions permission settings.
       if (user_access('administer managed modules', $account)) {
         $access[$cid] = TRUE;
+
         return $access[$cid];
       }
     }
@@ -197,11 +197,13 @@ function module_permissions_access($op = 'system_modules', $account = NULL) {
       // Perform basic permission checks first.
       if (user_access('administer permissions', $account)) {
         $access[$cid] = TRUE;
+
         return $access[$cid];
       }
       // Module permissions permission settings.
       if (user_access('administer managed modules permissions', $account) && user_access('administer managed modules', $account)) {
         $access[$cid] = TRUE;
+
         return $access[$cid];
       }
     }
@@ -229,6 +231,7 @@ function module_permissions_restrict($op = 'system_modules', $account = NULL) {
     // User #1 has all privileges:
     if ($account->uid == 1) {
       $restrict[$cid] = FALSE;
+
       return $restrict[$cid];
     }
 
@@ -237,10 +240,12 @@ function module_permissions_restrict($op = 'system_modules', $account = NULL) {
 
     if (in_array(TRUE, $restrict_results, TRUE)) {
       $restrict[$cid] = TRUE;
+
       return $restrict[$cid];
     }
     elseif (in_array(FALSE, $restrict_results, TRUE)) {
       $restrict[$cid] = FALSE;
+
       return $restrict[$cid];
     }
 
@@ -249,11 +254,13 @@ function module_permissions_restrict($op = 'system_modules', $account = NULL) {
       // Perform basic permission checks first.
       if (user_access('administer modules', $account)) {
         $restrict[$cid] = FALSE;
+
         return $restrict[$cid];
       }
       // Module permissions permission settings.
       if (user_access('administer managed modules', $account)) {
         $restrict[$cid] = TRUE;
+
         return $restrict[$cid];
       }
     }
@@ -261,11 +268,13 @@ function module_permissions_restrict($op = 'system_modules', $account = NULL) {
       // Perform basic permission checks first.
       if (user_access('administer permissions', $account)) {
         $restrict[$cid] = FALSE;
+
         return $restrict[$cid];
       }
       // Module permissions permission settings.
       if (user_access('administer managed modules permissions', $account) && user_access('administer managed modules', $account)) {
         $restrict[$cid] = TRUE;
+
         return $restrict[$cid];
       }
     }
