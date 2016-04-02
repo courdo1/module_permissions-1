@@ -48,8 +48,12 @@ function module_permissions_requirements($phase) {
  */
 function module_permissions_install() {
   // Init module variables.
-  variable_set('module_permissions_managed_modules', array());
-  variable_set('module_permissions_exclude_core', 1);
+  if (variable_get('module_permissions_managed_modules') === NULL) {
+    variable_set('module_permissions_managed_modules', array());
+  }
+  if (variable_get('module_permissions_exclude_core') === NULL) {
+    variable_set('module_permissions_exclude_core', 1);
+  }
 }
 
 /**
