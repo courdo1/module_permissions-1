@@ -423,14 +423,16 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
           'warning' => !empty($perm_item['restrict access']) ? t('Warning: Give to trusted roles only; this permission has security implications.') : '',
         );
         $options[$perm] = '';
+        $perm_description = theme('user_permission_description',
+          array(
+            'permission_item' => $perm_item,
+            'hide' => $hide_descriptions,
+          )
+        );
         $form['permission'][$perm] = array(
           '#type' => 'item',
           '#markup' => $perm_item['title'],
-          '#description' => theme('user_permission_description', array(
-              'permission_item' => $perm_item,
-              'hide' => $hide_descriptions,
-            )
-          ),
+          '#description' => $perm_description,
         );
         // Build arrays for roles.
         foreach ($role_names as $rid => $name) {
