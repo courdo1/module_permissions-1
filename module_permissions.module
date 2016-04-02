@@ -83,16 +83,6 @@ function module_permissions_permission() {
  * Implements hook_menu().
  */
 function module_permissions_menu() {
-  // Managed modules list path.
-  $items['admin/modules/managed'] = array(
-    'title' => 'Managed modules',
-    'description' => 'Add/remove modules from the managed module list.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('module_permissions_managed_modules'),
-    'access arguments' => array('administer module permissions'),
-    'file' => 'module_permissions.admin.inc',
-  );
-
   // Managed modules config path.
   $items['admin/config/system/managed-modules'] = array(
     'title' => 'Module permissions',
