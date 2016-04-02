@@ -6,13 +6,13 @@
  */
 
 /**
- * Menu callback; provides managed module enable/disable interface.
+ * Menu callback; provides managed module interface.
  *
  * @ingroup forms
  *
  * @see system_modules()
  */
-function module_permissions_managed_modules($form, $form_state = array()) {
+function module_permissions_form_managed_modules($form, $form_state = array()) {
   // Get current list of modules.
   $files = system_rebuild_module_data();
 
@@ -33,6 +33,7 @@ function module_permissions_managed_modules($form, $form_state = array()) {
   // If list is empty, return and set a message.
   if (empty($visible_files)) {
     drupal_set_message(t('Managed module list is empty.'), 'warning');
+
     return $form;
   }
 
@@ -104,7 +105,7 @@ function module_permissions_managed_modules($form, $form_state = array()) {
 /**
  * Form submission handler for module_permissions_managed_modules().
  */
-function module_permissions_managed_modules_submit($form, &$form_state) {
+function module_permissions_form_managed_modules_submit($form, &$form_state) {
   $managed_modules = array();
 
   if (!empty($form_state['values']['modules'])) {
@@ -119,6 +120,137 @@ function module_permissions_managed_modules_submit($form, &$form_state) {
   }
 
   variable_set('module_permissions_managed_modules', $managed_modules);
+  drupal_set_message(t('The configuration options have been saved.'));
+}
+
+/**
+ * Menu callback; provides protected module interface.
+ *
+ * @ingroup forms
+ *
+ * @see system_modules()
+ */
+function module_permissions_form_protected_modules($form, $form_state = array()) {
+  // Get current list of modules.
+  $files = system_rebuild_module_data();
+
+  // Remove hidden modules from display list.
+  $visible_files = $files;
+
+  // Unset hidden module.
+  foreach ($visible_files as $filename => $file) {
+    if (!empty($file->info['hidden'])) {
+      unset($visible_files[$filename]);
+    }
+  }
+
+  // If list is empty, return and set a message.
+  if (empty($visible_files)) {
+    drupal_set_message(t('Protected module list is empty.'), 'warning');
+
+    return $form;
+  }
+
+  uasort($visible_files, 'module_permissions_sort_modules_by_info_name');
+
+  // Remove module permissions from list.
+  unset($visible_files['module_permissions']);
+
+  // Create module listing.
+  $protected_modules = module_permissions_protected_modules_load();
+  $form['modules'] = array('#tree' => TRUE);
+
+  // Iterate through each of the modules and add to form.
+  foreach ($visible_files as $filename => $module) {
+    // Set default value.
+    $default_value = 0;
+    $disabled = 0;
+
+    // Read module declaration at first.
+    if (isset($module->info['required']) && $module->info['required'] === TRUE) {
+      $default_value = 1;
+      $disabled = 1;
+    }
+
+    // Read protected modules declaration.
+    if (isset($protected_modules[$filename])) {
+      $default_value = 1;
+      $disabled = 0;
+    }
+
+    $form['modules'][$module->info['package']][$filename] = array(
+      '#tree' => TRUE,
+      'granted' => array(
+        '#type' => 'checkbox',
+        '#title' => t('Granted'),
+        '#default_value' => $default_value,
+        '#disabled' => $disabled,
+      ),
+      'name' => array(
+        '#markup' => $module->info['name'],
+      ),
+      'version' => array(
+        '#markup' => $module->info['version'],
+      ),
+      'description' => array(
+        '#markup' => t('!description', array('!description' => $module->info['description'])),
+      ),
+    );
+  }
+
+  // Add basic information to the fieldsets.
+  foreach (element_children($form['modules']) as $package) {
+    $form['modules'][$package] += array(
+      '#type' => 'fieldset',
+      '#title' => t('!package', array('!package' => $package)),
+      '#collapsible' => TRUE,
+      '#theme' => 'module_permissions_managed_modules_list',
+      '#header' => array(
+        array(
+          'data' => t('Granted'),
+          'class' => array('checkbox'),
+        ),
+        t('Name'),
+        t('Version'),
+        t('Description'),
+      ),
+      // Ensure that the "Core" package fieldset comes first.
+      '#weight' => $package == 'Core' ? -10 : NULL,
+    );
+  }
+
+  // Lastly, sort all fieldsets by title.
+  uasort($form['modules'], 'element_sort_by_title');
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+
+  $form['#submit'][] = 'module_permissions_protected_modules_submit';
+
+  return $form;
+}
+
+/**
+ * Form submission handler for module_permissions_protected_modules().
+ */
+function module_permissions_form_protected_modules_submit($form, &$form_state) {
+  $protected_modules = array();
+
+  if (!empty($form_state['values']['modules'])) {
+    foreach ($form_state['values']['modules'] as $modules) {
+      foreach ($modules as $name => $values) {
+        $modules = $values['granted'];
+        if ($modules) {
+          $protected_modules[] = $name;
+        }
+      }
+    }
+  }
+
+  variable_set('module_permissions_protected_modules', $protected_modules);
   drupal_set_message(t('The configuration options have been saved.'));
 }
 
