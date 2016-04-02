@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Module Permissions admin paths.
+ * Common pages for the module.
  */
 
 /**
@@ -127,20 +127,4 @@ function module_permissions_managed_modules_submit($form, &$form_state) {
  */
 function module_permissions_sort_modules_by_info_name($a, $b) {
   return strcasecmp($a->info['name'], $b->info['name']);
-}
-
-/**
- * Menu callback; provides managed module config interface.
- *
- * @ingroup forms
- */
-function module_permissions_config($form, $form_state = array()) {
-  $form['module_permissions_exclude_core'] = array(
-    '#type' => 'radios',
-    '#title' => t('Exclude core modules'),
-    '#default_value' => variable_get('module_permissions_exclude_core', 1),
-    '#options' => array(0 => 'No', 1 => 'Yes'),
-    '#description' => t('Exclude core modules from managed modules list. Warning: for security reasons, it is advisable to always exclude core modules from the  managed module list.'),
-  );
-  return system_settings_form($form);
 }

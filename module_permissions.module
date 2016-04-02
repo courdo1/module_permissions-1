@@ -90,7 +90,7 @@ function module_permissions_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('module_permissions_managed_modules'),
     'access arguments' => array('administer module permissions'),
-    'file' => 'module_permissions.admin.inc',
+    'file' => 'includes/module_permissions.pages.inc',
   );
 
   // Managed modules config path.
@@ -100,7 +100,7 @@ function module_permissions_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('module_permissions_managed_modules'),
     'access arguments' => array('administer module permissions'),
-    'file' => 'module_permissions.admin.inc',
+    'file' => 'includes/module_permissions.pages.inc',
   );
   $items['admin/config/system/managed-modules/list'] = array(
     'title' => 'List',
@@ -113,7 +113,7 @@ function module_permissions_menu() {
     'page arguments' => array('module_permissions_config'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_LOCAL_TASK,
-    'file' => 'module_permissions.admin.inc',
+    'file' => 'includes/module_permissions.admin.inc',
     'weight' => 20,
   );
 
@@ -548,7 +548,7 @@ function module_permissions_theme() {
   return array(
     'module_permissions_managed_modules_list' => array(
       'render element' => 'form',
-      'file' => 'module_permissions.theme.inc',
+      'file' => 'includes/module_permissions.theme.inc',
     ),
   );
 }
