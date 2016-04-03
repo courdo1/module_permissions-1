@@ -350,6 +350,10 @@ function module_permissions_load_managed_modules() {
   if (!isset($managed_modules)) {
     $managed_modules = variable_get('module_permissions_managed_modules', array());
     $managed_modules = array_flip($managed_modules);
+    // Remove module permissions from list.
+    if (isset($protected_modules['module_permissions'])) {
+      unset($protected_modules['module_permissions']);
+    }
   }
 
   return $managed_modules;
@@ -364,6 +368,10 @@ function module_permissions_load_protected_modules() {
   if (!isset($protected_modules)) {
     $protected_modules = variable_get('module_permissions_protected_modules', array());
     $protected_modules = array_flip($protected_modules);
+    // Remove module permissions from list.
+    if (isset($protected_modules['module_permissions'])) {
+      unset($protected_modules['module_permissions']);
+    }
   }
 
   return $protected_modules;
