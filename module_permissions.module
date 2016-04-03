@@ -351,8 +351,8 @@ function module_permissions_load_managed_modules() {
     $managed_modules = variable_get('module_permissions_managed_modules', array());
     $managed_modules = array_flip($managed_modules);
     // Remove module permissions from list.
-    if (isset($protected_modules['module_permissions'])) {
-      unset($protected_modules['module_permissions']);
+    if (isset($managed_modules['module_permissions'])) {
+      unset($managed_modules['module_permissions']);
     }
   }
 
