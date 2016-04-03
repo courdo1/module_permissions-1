@@ -65,7 +65,6 @@ class ModulePermissionsTestCase extends ModulePermissionsWebTestCase {
     }
 
     // Include core modules for testing.
-    variable_set('module_permissions_exclude_core', 0);
     variable_set('module_permissions_managed_modules', array_keys($modules));
 
     $this->assertTrue(count($modules), format_string('Found @count core modules that we can try to enable in this test.', array('@count' => count($modules))));

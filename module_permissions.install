@@ -65,9 +65,6 @@ function module_permissions_install() {
   if (variable_get('module_permissions_protected_modules') === NULL) {
     variable_set('module_permissions_protected_modules', array());
   }
-  if (variable_get('module_permissions_exclude_core') === NULL) {
-    variable_set('module_permissions_exclude_core', 1);
-  }
 }
 
 /**
@@ -77,5 +74,4 @@ function module_permissions_uninstall() {
   // Clean up the module variables from database after uninstall.
   variable_del('module_permissions_managed_modules');
   variable_del('module_permissions_protected_modules');
-  variable_del('module_permissions_exclude_core');
 }

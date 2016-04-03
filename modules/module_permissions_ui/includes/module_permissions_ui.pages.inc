@@ -12,13 +12,13 @@
  *
  * @see system_modules()
  */
-function module_permissions_form_managed_modules($form, $form_state = array()) {
+function module_permissions_ui_form_managed_modules($form, $form_state = array()) {
   // Get current list of modules.
   $files = system_rebuild_module_data();
 
   // Remove hidden modules from display list.
   $visible_files = $files;
-  $exclude_core = variable_get('module_permissions_exclude_core', 1);
+  $exclude_core = variable_get('module_permissions_ui_exclude_core', 1);
 
   foreach ($visible_files as $filename => $file) {
     if (!empty($file->info['hidden'])) {
@@ -127,7 +127,7 @@ function module_permissions_form_managed_modules($form, $form_state = array()) {
       '#type' => 'fieldset',
       '#title' => t('!package', array('!package' => $package)),
       '#collapsible' => TRUE,
-      '#theme' => 'module_permissions_managed_modules_list',
+      '#theme' => 'module_permissions_ui_managed_modules_list',
       '#header' => array(
         array(
           'data' => t('Granted'),
@@ -152,15 +152,15 @@ function module_permissions_form_managed_modules($form, $form_state = array()) {
     '#value' => t('Save configuration'),
   );
 
-  $form['#submit'][] = 'module_permissions_form_managed_modules_submit';
+  $form['#submit'][] = 'module_permissions_ui_form_managed_modules_submit';
 
   return $form;
 }
 
 /**
- * Form submission handler for module_permissions_managed_modules().
+ * Form submission handler for module_permissions_ui_form_managed_modules().
  */
-function module_permissions_form_managed_modules_submit($form, &$form_state) {
+function module_permissions_ui_form_managed_modules_submit($form, &$form_state) {
   $managed_modules = array();
 
   if (!empty($form_state['values']['modules'])) {
@@ -185,7 +185,7 @@ function module_permissions_form_managed_modules_submit($form, &$form_state) {
  *
  * @see system_modules()
  */
-function module_permissions_form_protected_modules($form, $form_state = array()) {
+function module_permissions_ui_form_protected_modules($form, $form_state = array()) {
   // Get current list of modules.
   $files = system_rebuild_module_data();
 
@@ -329,7 +329,7 @@ function module_permissions_form_protected_modules($form, $form_state = array())
       '#type' => 'fieldset',
       '#title' => t('!package', array('!package' => $package)),
       '#collapsible' => TRUE,
-      '#theme' => 'module_permissions_managed_modules_list',
+      '#theme' => 'module_permissions_ui_managed_modules_list',
       '#header' => array(
         array(
           'data' => t('Granted'),
@@ -354,15 +354,15 @@ function module_permissions_form_protected_modules($form, $form_state = array())
     '#value' => t('Save configuration'),
   );
 
-  $form['#submit'][] = 'module_permissions_form_protected_modules_submit';
+  $form['#submit'][] = 'module_permissions_ui_form_protected_modules_submit';
 
   return $form;
 }
 
 /**
- * Form submission handler for module_permissions_protected_modules().
+ * Form submission handler for module_permissions_ui_form_protected_modules().
  */
-function module_permissions_form_protected_modules_submit($form, &$form_state) {
+function module_permissions_ui_form_protected_modules_submit($form, &$form_state) {
   $protected_modules = array();
 
   if (!empty($form_state['values']['modules'])) {

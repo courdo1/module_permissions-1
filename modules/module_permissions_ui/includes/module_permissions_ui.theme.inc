@@ -10,7 +10,7 @@
 /**
  * Managed modules list theme.
  */
-function theme_module_permissions_managed_modules_list($variables) {
+function theme_module_permissions_ui_managed_modules_list($variables) {
   $form = $variables['form'];
 
   // Individual table headers.
