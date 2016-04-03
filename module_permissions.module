@@ -246,6 +246,10 @@ function module_permissions_form_handler(&$form, $callback = '') {
     // Add logs submit callback.
     $form["#submit"][] = 'module_permissions_logs_submit';
   }
+  else {
+    // Fallback if function not exists.
+    drupal_access_denied();
+  }
 }
 
 /**
