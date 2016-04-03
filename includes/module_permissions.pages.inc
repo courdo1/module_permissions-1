@@ -97,7 +97,7 @@ function module_permissions_form_managed_modules($form, $form_state = array()) {
     '#value' => t('Save configuration'),
   );
 
-  $form['#submit'][] = 'module_permissions_managed_modules_submit';
+  $form['#submit'][] = 'module_permissions_form_managed_modules_submit';
 
   return $form;
 }
@@ -228,7 +228,7 @@ function module_permissions_form_protected_modules($form, $form_state = array())
     '#value' => t('Save configuration'),
   );
 
-  $form['#submit'][] = 'module_permissions_protected_modules_submit';
+  $form['#submit'][] = 'module_permissions_form_protected_modules_submit';
 
   return $form;
 }
