@@ -30,9 +30,16 @@ function theme_module_permissions_managed_modules_list($variables) {
       $label .= ' for="' . $module['granted']['#id'] . '"';
     }
     $row[] = $label . '><strong>' . drupal_render($module['name']) . '</strong></label>';
-    $row[] = drupal_render($module['version']);
+    $row[] = array(
+      'data' => drupal_render($module['status']),
+      'class' => array('status'),
+    );
     $description = drupal_render($module['description']);
     $row[] = array('data' => $description, 'class' => array('description'));
+    $row[] = array(
+      'data' => drupal_render($module['dependency']),
+      'class' => array('dependency'),
+    );
     $rows[] = $row;
   }
 
