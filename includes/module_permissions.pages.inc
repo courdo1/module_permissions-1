@@ -72,7 +72,8 @@ function module_permissions_form_managed_modules($form, $form_state = array()) {
       // Only display visible modules.
       elseif (isset($visible_files[$requires])) {
         $requires_name = $files[$requires]->info['name'];
-        // Disable this module if it is incompatible with the dependency's version.
+        // Disable this module if it is incompatible with the
+        // dependency's version.
         if ($incompatible_version = drupal_check_incompatibility($v, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $files[$requires]->info['version']))) {
           $extra['requires'][$requires] = t('@module (<span class="admin-missing">incompatible with</span> version @version)', array(
             '@module' => $requires_name . $incompatible_version,
@@ -240,7 +241,8 @@ function module_permissions_form_protected_modules($form, $form_state = array())
       // Only display visible modules.
       elseif (isset($visible_files[$requires])) {
         $requires_name = $files[$requires]->info['name'];
-        // Disable this module if it is incompatible with the dependency's version.
+        // Disable this module if it is incompatible with the
+        // dependency's version.
         if ($incompatible_version = drupal_check_incompatibility($v, str_replace(DRUPAL_CORE_COMPATIBILITY . '-', '', $files[$requires]->info['version']))) {
           $extra['requires'][$requires] = t('@module (<span class="admin-missing">incompatible with</span> version @version)', array(
             '@module' => $requires_name . $incompatible_version,
