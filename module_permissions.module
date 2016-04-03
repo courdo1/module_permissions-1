@@ -157,7 +157,7 @@ function module_permissions_menu_alter(&$items) {
 }
 
 /**
- * Provide a access callback.
+ * Provide a menu access callback.
  *
  * @see module_permissions_menu_alter()
  */
@@ -332,7 +332,7 @@ function module_permissions_form_handler(&$form, $callback = '') {
 function module_permissions_system_info_alter(&$info, $file, $type) {
   // Limit type module.
   if ($type == 'module') {
-    $protected_modules = module_permissions_protected_modules_load();
+    $protected_modules = module_permissions_load_protected_modules();
     if (isset($protected_modules[$file->name])) {
       // Protect this module.
       $info['required'] = TRUE;
@@ -344,7 +344,7 @@ function module_permissions_system_info_alter(&$info, $file, $type) {
 /**
  * Get managed modules list.
  */
-function module_permissions_managed_modules_load() {
+function module_permissions_load_managed_modules() {
   $managed_modules = &drupal_static(__FUNCTION__);
 
   if (!isset($managed_modules)) {
@@ -358,7 +358,7 @@ function module_permissions_managed_modules_load() {
 /**
  * Get protected modules list.
  */
-function module_permissions_protected_modules_load() {
+function module_permissions_load_protected_modules() {
   $protected_modules = &drupal_static(__FUNCTION__);
 
   if (!isset($protected_modules)) {

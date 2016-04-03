@@ -18,7 +18,7 @@ function module_permissions_form_system_modules_handler(&$form) {
     // the values are still submitted.
     $form['locked'] = array('#tree' => TRUE, '#access' => FALSE);
     // Remove modules from form that are not in the managed list.
-    $managed_modules = module_permissions_managed_modules_load();
+    $managed_modules = module_permissions_load_managed_modules();
     if (empty($managed_modules)) {
       drupal_set_message(t('Managed module list is empty. Please contact your site administrator.'), 'status');
     }
@@ -93,7 +93,7 @@ function module_permissions_form_user_admin_permissions_handler(&$form) {
   $options = array();
   $module_info = system_get_info('module');
   $hide_descriptions = system_admin_compact_mode();
-  $managed_modules = module_permissions_managed_modules_load();
+  $managed_modules = module_permissions_load_managed_modules();
   if (empty($managed_modules)) {
     drupal_set_message(t('Managed module permission list is empty. Please contact your site administrator.'), 'status');
   }

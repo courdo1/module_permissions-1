@@ -43,7 +43,7 @@ function module_permissions_form_managed_modules($form, $form_state = array()) {
   unset($visible_files['module_permissions']);
 
   // Create module listing.
-  $managed_modules = module_permissions_managed_modules_load();
+  $managed_modules = module_permissions_load_managed_modules();
   $form['modules'] = array('#tree' => TRUE);
 
   // Iterate through each of the modules and add to form.
@@ -157,7 +157,7 @@ function module_permissions_form_protected_modules($form, $form_state = array())
   unset($visible_files['module_permissions']);
 
   // Create module listing.
-  $protected_modules = module_permissions_protected_modules_load();
+  $protected_modules = module_permissions_load_protected_modules();
   $form['modules'] = array('#tree' => TRUE);
 
   // Iterate through each of the modules and add to form.
