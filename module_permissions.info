@@ -3,3 +3,4 @@ description = "Allow administrators to define a subset of modules to be managed 
 package = Administration
 core = 7.x
 files[] = tests/module_permissions.test
+files[] = tests/module_permissions_ui.test
