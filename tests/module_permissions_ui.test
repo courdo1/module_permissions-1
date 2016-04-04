@@ -48,6 +48,10 @@ class ModulePermissionsUITestCase extends ModulePermissionsWebTestCase {
    */
   public function testMenuAccess() {
     // Check managed modules path.
+    $this->drupalGet('admin/modules/managed');
+    $this->assertResponse('200', 'Access managed modules config path.');
+
+    // Check managed modules path.
     $this->drupalGet('admin/config/system/managed-modules');
     $this->assertResponse('200', 'Access managed modules config path.');
 

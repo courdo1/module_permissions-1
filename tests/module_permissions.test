@@ -47,6 +47,9 @@ class ModulePermissionsTestCase extends ModulePermissionsWebTestCase {
     );
   }
 
+  /**
+   * Set up test.
+   */
   public function setUp() {
     parent::setUp();
 
