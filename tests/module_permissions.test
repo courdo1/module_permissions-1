@@ -71,10 +71,6 @@ class ModulePermissionsTestCase extends ModulePermissionsWebTestCase {
     // Check managed modules path.
     $this->drupalGet('admin/modules');
     $this->assertResponse('200', 'Access modules admin path.');
-
-    // Check protected modules path.
-    $this->drupalGet('admin/people/permissions');
-    $this->assertResponse('200', 'Access users permissions config path.');
   }
 
   /**
