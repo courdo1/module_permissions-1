@@ -27,8 +27,11 @@ function module_permissions_form_system_modules_handler(&$form) {
         if (!isset($managed_modules[$module])) {
           // Copy row into locked area.
           $row = $form['modules'][$package][$module];
-          $row['#parents'] = array('modules', $package, $module);
-          $form['locked'][$package][$module] = $row;
+          // Exclude other modules depend on module permissions.
+          if (empty($row['#requires']['module_permissions'])) {
+            $row['#parents'] = array('modules', $package, $module);
+            $form['locked'][$package][$module] = $row;
+          }
           // Remove from display.
           unset($form['modules'][$package][$module]);
         }
