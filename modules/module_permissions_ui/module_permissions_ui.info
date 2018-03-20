@@ -1,6 +1,0 @@
-name = "Module Permissions UI"
-description = "Administrative interface to Module Permissions module"
-package = Administration
-core = 7.x
-configure = admin/config/system/managed-modules/config
-dependencies[] = module_permissions
