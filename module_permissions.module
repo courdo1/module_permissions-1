@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains module_permissions.module.
+ * Protects a site with the managed blacklist.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
