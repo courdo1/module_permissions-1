@@ -16,20 +16,9 @@ function module_permissions_help($route_name, RouteMatchInterface $route_match) 
     case 'help.page.module_permissions':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Allow administrators to define a subset of modules to be managed by others') . '</p>';
+      $output .= '<p>' . t('Protects a site with the managed blacklist of modules, permissions and paths.') . '</p>';
       return $output;
 
     default:
   }
-}
-
-/**
- * Implements hook_theme().
- */
-function module_permissions_theme() {
-  return [
-    'module_permissions' => [
-      'render element' => 'children',
-    ],
-  ];
 }

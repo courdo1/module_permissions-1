@@ -1,5 +1,0 @@
-name: 'Module Permissions'
-type: module
-description: 'Allow administrators to define a subset of modules to be managed by others'
-core: 8.x
-package: 'Administration'

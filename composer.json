@@ -1,7 +1,7 @@
 {
   "name": "drupal/module_permissions",
   "type": "drupal-module",
-  "description": "Allow administrators to define a subset of modules to be managed by others",
+  "description": "Protects a site with the managed blacklist of modules, permissions and paths.",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
   "homepage": "https://www.drupal.org/project/module_permissions",
